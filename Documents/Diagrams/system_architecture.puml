@@ -1,0 +1,24 @@
+@startuml
+package "Client Layer (Presentation)" {
+    [Web Browser]
+    [Angular Application (SPA)]
+}
+
+package "Server Layer (Application)" {
+    [ASP.NET Core Web API]
+    [Authentication Service (JWT)]
+    [Business Logic Layer]
+}
+
+package "Data Layer (Persistence)" {
+    [Entity Framework Core]
+    database "Azure SQL Database"
+}
+
+[Web Browser] --> [Angular Application (SPA)] : Host
+[Angular Application (SPA)] --> [ASP.NET Core Web API] : HTTPS / JSON
+[ASP.NET Core Web API] --> [Authentication Service (JWT)] : Validate Token
+[ASP.NET Core Web API] --> [Business Logic Layer] : Process Request
+[Business Logic Layer] --> [Entity Framework Core] : Object Mapping
+[Entity Framework Core] --> "Azure SQL Database" : SQL Query
+@enduml

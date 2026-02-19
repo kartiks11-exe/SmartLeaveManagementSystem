@@ -1,0 +1,47 @@
+@startuml
+entity "Users" {
+  *Id : INT <<PK>>
+  --
+  FirstName : NVARCHAR(50)
+  LastName : NVARCHAR(50)
+  Email : NVARCHAR(100)
+  PasswordHash : NVARCHAR(MAX)
+  Role : NVARCHAR(20)
+  ManagerId : INT <<FK>>
+}
+
+entity "LeaveTypes" {
+  *Id : INT <<PK>>
+  --
+  Name : NVARCHAR(50)
+  DefaultDays : INT
+}
+
+entity "LeaveRequests" {
+  *Id : INT <<PK>>
+  --
+  UserId : INT <<FK>>
+  LeaveTypeId : INT <<FK>>
+  StartDate : DATE
+  EndDate : DATE
+  Reason : NVARCHAR(250)
+  Status : NVARCHAR(20)
+  ManagerComment : NVARCHAR(250)
+  RequestDate : DATETIME
+}
+
+entity "LeaveBalances" {
+  *Id : INT <<PK>>
+  --
+  UserId : INT <<FK>>
+  LeaveTypeId : INT <<FK>>
+  TotalDays : INT
+  UsedDays : INT
+}
+
+"Users" ||--o{ "LeaveRequests" : "Submits"
+"Users" ||--o{ "LeaveBalances" : "Has"
+"Users" |o--o{ "Users" : "Manages"
+"LeaveTypes" ||--o{ "LeaveRequests" : "Defines"
+"LeaveTypes" ||--o{ "LeaveBalances" : "Allocates"
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+autonumber
+actor Employee
+participant "Angular Frontend" as UI
+participant "Web API" as API
+participant "Leave Service" as Service
+participant "Azure SQL" as DB
+
+Employee -> UI: Fill Leave Form & Submit
+UI -> API: POST /api/leaves (RequestDTO)
+activate API
+API -> Service: ValidateRequest(RequestDTO)
+activate Service
+Service -> DB: GetLeaveBalance(UserId, TypeId)
+activate DB
+DB --> Service: BalanceDetails
+deactivate DB
+
+alt Insufficient Balance
+    Service --> API: ValidationError
+    API --> UI: 400 Bad Request
+    UI --> Employee: Show Error Message
+else Sufficient Balance
+    Service -> DB: Save(LeaveRequest)
+    activate DB
+    DB --> Service: Success
+    deactivate DB
+    Service --> API: RequestCreated
+    API --> UI: 201 Created
+    UI --> Employee: Show Success & Update Dashboard
+end
+deactivate Service
+deactivate API
+@enduml

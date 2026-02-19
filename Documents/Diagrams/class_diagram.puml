@@ -1,0 +1,49 @@
+@startuml
+class User {
+    +int Id
+    +string FirstName
+    +string LastName
+    +string Email
+    +string PasswordHash
+    +string Role
+    +int ManagerId
+    +Login()
+    +UpdateProfile()
+}
+
+class LeaveType {
+    +int Id
+    +string Name
+    +int DefaultDays
+}
+
+class LeaveRequest {
+    +int Id
+    +int UserId
+    +int LeaveTypeId
+    +DateTime StartDate
+    +DateTime EndDate
+    +string Reason
+    +string Status
+    +DateTime AppliedDate
+    +string ManagerComment
+    +Submit()
+    +Cancel()
+}
+
+class LeaveBalance {
+    +int Id
+    +int UserId
+    +int LeaveTypeId
+    +int TotalDays
+    +int UsedDays
+    +int RemainingDays
+    +DeductBalance()
+}
+
+User "1" --> "*" LeaveRequest : creates
+User "1" --> "*" LeaveBalance : has
+User "0..1" --> "*" User : manages
+LeaveType "1" --> "*" LeaveRequest : categorizes
+LeaveType "1" --> "*" LeaveBalance : defines quota
+@enduml

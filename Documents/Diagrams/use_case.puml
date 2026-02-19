@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+actor "Employee" as Emp
+actor "Manager" as Mgr
+
+package "Smart Leave Management System" {
+    usecase "Login" as UC1
+    usecase "View Dashboard" as UC2
+    usecase "Apply for Leave" as UC3
+    usecase "View Leave Status" as UC4
+    usecase "View Leave History" as UC5
+    usecase "View Leave Balance" as UC6
+    
+    usecase "View Pending Requests" as UC8
+    usecase "Approve Leave" as UC9
+    usecase "Reject Leave" as UC10
+    usecase "View Team Availability" as UC11
+}
+
+Emp --> UC1
+Emp --> UC2
+Emp --> UC3
+Emp --> UC4
+Emp --> UC5
+Emp --> UC6
+
+Mgr --> UC1
+Mgr --> UC2
+Mgr --> UC8
+Mgr --> UC9
+Mgr --> UC10
+Mgr --> UC11
+@enduml

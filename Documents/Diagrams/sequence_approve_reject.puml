@@ -1,0 +1,33 @@
+@startuml
+autonumber
+actor Manager
+participant "Angular Frontend" as UI
+participant "Web API" as API
+participant "Leave Service" as Service
+participant "Azure SQL" as DB
+
+Manager -> UI: Select Request & Click Approve/Reject
+UI -> API: PUT /api/leaves/{id}/status (Status, Comment)
+activate API
+API -> Service: UpdateStatus(Id, Status, Comment)
+activate Service
+
+group Transaction
+    Service -> DB: GetRequestById(Id)
+    DB --> Service: ExistingRequest
+    Service -> DB: Update Request Status
+    
+    alt Status is Approved
+        Service -> DB: Update LeaveBalance (Deduct Days)
+    end
+    
+    Service -> DB: SaveChanges()
+    DB --> Service: Success
+end
+
+Service --> API: Success
+API --> UI: 200 OK
+UI --> Manager: Remove from Pending List
+deactivate Service
+deactivate API
+@enduml
