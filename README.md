@@ -3,6 +3,7 @@
 A modern, full-stack Employee Leave Management System built with **.NET 8** and **Angular 18**. Designed for efficiency, transparency, and ease of use for both employees and managers.
 
 
+![Smart Leave Dashboard](Screenshot/dashboard-preview.png)
 
 ## 🚀 Features
 
