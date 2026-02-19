@@ -30,7 +30,7 @@ A modern, full-stack Employee Leave Management System built with **.NET 8** and 
 
 ## 📂 Project Structure
 
-![Smart Leave Dashboard](Screenshot/dashboard-preview.png)
+
 ```bash
 📦 SmartLeaveManagement
  ┣ 📂 SmartLeaveManagement.Api  # ASP.NET Core Backend
